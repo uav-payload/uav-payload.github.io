@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products - UAV Payload Technology</title>
+    <title>UAV Payload Technology</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* 全局重置与基础设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0b1120;
-            color: #f1f5f9;
+            background-color: #0b1120; /* 深邃的科技暗色背景 */
+            color: #f1f5f9; /* 柔和的亮灰色文字 */
             line-height: 1.6;
         }
 
-        /* 导航栏 */
+        /* 导航栏设计 */
         header {
             background-color: rgba(11, 17, 32, 0.9);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px); /* 毛玻璃效果 */
             position: sticky;
             top: 0;
             z-index: 100;
@@ -31,45 +37,108 @@
             justify-content: space-between;
             align-items: center;
         }
-        .logo { font-size: 1.5rem; font-weight: 800; color: #fff; text-decoration: none; }
-        .logo span { color: #0ea5e9; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; margin-left: 30px; font-weight: 600; }
-
-        /* 产品详情区布局 */
-        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
-        .product-section {
-            display: flex;
-            gap: 50px;
-            padding: 80px 0;
-            border-bottom: 1px solid #1e293b;
-            align-items: center;
-            scroll-margin-top: 100px; /* 点击跳转后留出顶部间距 */
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 1px;
         }
-        .product-section:nth-child(even) { flex-direction: row-reverse; } /* 奇偶交替排版 */
+        .logo span {
+            color: #0ea5e9;
+        }
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #0ea5e9;
+        }
 
-        .product-image-large {
-            flex: 1;
-            border-radius: 15px;
-            overflow: hidden;
+        /* 首屏横幅 */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(180deg, #0f172a 0%, #0b1120 100%);
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: -webkit-linear-gradient(45deg, #fff, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 核心内容区布局 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #fff;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background-color: #1e293b;
+            padding: 30px;
+            border-radius: 12px;
             border: 1px solid #334155;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .product-image-large img { width: 100%; display: block; }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
+            border-color: #0ea5e9;
+        }
+        .card h3 {
+            font-size: 1.3rem;
+            color: #0ea5e9;
+            margin-bottom: 15px;
+        }
 
-        .product-info { flex: 1; }
-        .product-info h2 { font-size: 2.5rem; color: #0ea5e9; margin-bottom: 20px; }
-        .product-info p { font-size: 1.1rem; color: #94a3b8; margin-bottom: 20px; }
-        
-        .specs-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .specs-table td { padding: 12px 0; border-bottom: 1px solid #1e293b; }
-        .specs-table td:first-child { color: #0ea5e9; font-weight: 600; width: 150px; }
+        /* 产品图片样式 */
+        .product-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: #0f172a;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            transition: transform 0.5s ease;
+        }
+        .card:hover .product-image img {
+            transform: scale(1.1);
+        }
 
-        footer { text-align: center; padding: 40px; background: #020617; color: #64748b; }
-
-        /* 手机适配 */
-        @media (max-width: 768px) {
-            .product-section, .product-section:nth-child(even) { flex-direction: column; padding: 40px 0; }
-            .product-info h2 { font-size: 1.8rem; }
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #020617;
+            color: #64748b;
+            border-top: 1px solid #1e293b;
         }
     </style>
 </head>
@@ -79,79 +148,56 @@
         <nav>
             <a href="index.html" class="logo">UAV <span>Payload</span></a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="products.html" style="color: #0ea5e9;">Products</a>
+                <a href="index.html" style="color: #0ea5e9;">Home</a>
+                <a href="products.html">Products</a>
                 <a href="about.html">About</a>
+                <a href="news.html">News</a>
                 <a href="contact.html">Contact</a>
             </div>
         </nav>
     </header>
 
-    <div class="container">
-        <section class="product-section" id="dock">
-            <div class="product-image-large">
-                <img src="images/dock.jpg.jpg" alt="Dji Dock 3">
-            </div>
-            <div class="product-info">
-                <h2>Dji Dock 3 Series</h2>
-                <p>Fully automated payload solutions designed for the DJI Dock station. Optimized for long-term outdoor deployment and remote monitoring.</p>
-                <table class="specs-table">
-                    <tr><td>Compatibility</td><td>DJI Dock 3 Series</td></tr>
-                    <tr><td>Main Sensors</td><td>Multi-Gas Detector / Thermal</td></tr>
-                    <tr><td>Protection</td><td>IP55 Weatherproof</td></tr>
-                    <tr><td>Use Case</td><td>Oil & Gas, Chemical Plants</td></tr>
-                </table>
-            </div>
-        </section>
+    <section class="hero">
+        <h1>Enterprise UAV Payload Systems</h1>
+        <p>Advanced DJI-Compatible Payload Development. Designed & Manufactured in Shenzhen, China.</p>
+    </section>
 
-        <section class="product-section" id="matrice4t">
-            <div class="product-image-large">
-                <img src="images/4t.jpg.png" alt="DJI Matrice 4T">
+    <main class="container">
+        <h2>Our Core Solutions</h2>
+        <div class="grid">
+            <div class="card" onclick="location.href='products.html#dock'" style="cursor: pointer;">
+                <div class="product-image">
+                    <img src="images/dock.jpg.jpg" alt="Dji Dock 3">
+                </div>
+                <h3>Dji Dock 3 Series Payloads</h3>
+                <p>Equipped with gas detectors and other devices for chemical and oil & gas scenarios.</p>
             </div>
-            <div class="product-info">
-                <h2>DJI Matrice 4T & 4E</h2>
-                <p>Advanced airdrop and transportation kits for the M4T series, enabling rapid emergency response and supply delivery.</p>
-                <table class="specs-table">
-                    <tr><td>Load Capacity</td><td>Up to 2.5kg</td></tr>
-                    <tr><td>Release Type</td><td>Quick-release Servo Control</td></tr>
-                    <tr><td>Connectivity</td><td>SDK Integrated</td></tr>
-                    <tr><td>Use Case</td><td>Medical Delivery, SAR</td></tr>
-                </table>
-            </div>
-        </section>
 
-        <section class="product-section" id="cargo">
-            <div class="product-image-large">
-                <img src="images/fc100.jpg.jpg" alt="DJI Cargo">
+            <div class="card" onclick="location.href='products.html#matrice4t'" style="cursor: pointer;">
+                <div class="product-image">
+                    <img src="images/4t.jpg.png" alt="Dji Matrice 4T">
+                </div>
+                <h3>DJI Matrice 4T & 4E Payloads</h3>
+                <p>Airdrop Kit for Remote Transportation of Emergency Supplies.</p>
             </div>
-            <div class="product-info">
-                <h2>DJI Cargo UAV Series</h2>
-                <p>Heavy-duty solutions for the FC100 and other cargo drones. Featuring specialized fire-fighting and material handling equipment.</p>
-                <table class="specs-table">
-                    <tr><td>System Type</td><td>Fire Extinguishing / Cargo</td></tr>
-                    <tr><td>Ammo Capacity</td><td>4-8 Fire Bombs</td></tr>
-                    <tr><td>Precision</td><td>Laser-guided Targeting</td></tr>
-                    <tr><td>Use Case</td><td>Forest Fire, Logistics</td></tr>
-                </table>
-            </div>
-        </section>
 
-        <section class="product-section" id="matrice400">
-            <div class="product-image-large">
-                <img src="images/400.jpg.jpg" alt="DJI Matrice 400">
+            <div class="card" onclick="location.href='products.html#cargo'" style="cursor: pointer;">
+                <div class="product-image">
+                    <img src="images/fc100.jpg.jpg" alt="Dji Cargo">
+                </div>
+                <h3>DJI Cargo UAV Series Solutions</h3>
+                <p>Fire Fighting Water Gun and Extinguishing Bomb Delivery System.</p>
             </div>
-            <div class="product-info">
-                <h2>DJI Matrice 400 Series</h2>
-                <p>Multi-functional enterprise payloads for infrastructure maintenance and environmental monitoring.</p>
-                <table class="specs-table">
-                    <tr><td>Functions</td><td>Cleaning / Lighting / Methane</td></tr>
-                    <tr><td>Power Source</td><td>UAV Onboard Power</td></tr>
-                    <tr><td>Weight</td><td>Lightweight Carbon Fiber</td></tr>
-                    <tr><td>Use Case</td><td>High-rise Cleaning, Night Ops</td></tr>
-                </table>
+
+            <div class="card" onclick="location.href='products.html#matrice400'" style="cursor: pointer;">
+                <div class="product-image">
+                    <img src="images/400.jpg.jpg" alt="Dji Matrice 400">
+                </div>
+                <h3>DJI Matrice 400 Series Payloads</h3>
+                <p>Solutions for High-Altitude Cleaning, Tethered Lighting, and Methane Monitoring.</p>
             </div>
-        </section>
-    </div>
+        </div>
+    </main>
 
     <footer>
         <p>© 2026 UAV Payload Technology. All rights reserved.</p>
