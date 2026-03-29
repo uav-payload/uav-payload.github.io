@@ -6,6 +6,7 @@
     <title>Products - UAV Payload Technology</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
+        /* 基础样式与布局优化 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background-color: #0b1120; color: #f1f5f9; line-height: 1.6; }
 
@@ -16,31 +17,66 @@
         .nav-links a { color: #cbd5e1; text-decoration: none; margin-left: 30px; font-weight: 600; transition: color 0.3s; }
         .nav-links a:hover { color: #0ea5e9; }
 
-        /* Category Filter */
+        /* 分类导航栏 - 支持多行自动换行 */
         .filter-nav { max-width: 1200px; margin: 30px auto; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-        .filter-btn { padding: 10px 20px; background: #1e293b; border: 1px solid #334155; color: #cbd5e1; border-radius: 30px; cursor: pointer; font-weight: 600; transition: all 0.3s; font-size: 0.9rem; }
-        .filter-btn.active, .filter-btn:hover { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+        .filter-btn { 
+            padding: 10px 18px; 
+            background: #1e293b; 
+            border: 1px solid #334155; 
+            color: #cbd5e1; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            font-weight: 600; 
+            transition: all 0.3s; 
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .filter-btn.active, .filter-btn:hover { background: #0ea5e9; color: #fff; border-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.4); }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; min-height: 500px; }
         
-        .product-card { background: #1e293b; border-radius: 12px; border: 1px solid #334155; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; }
+        /* 产品网格容器 */
+        .product-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            gap: 25px; 
+            transition: opacity 0.3s ease;
+        }
+
+        /* 暂无产品提示 */
+        #no-products {
+            display: none;
+            text-align: center;
+            padding: 100px 20px;
+            color: #64748b;
+            font-size: 1.2rem;
+            width: 100%;
+        }
+        
+        /* 产品卡片样式预留 (后续添加产品时自动生效) */
+        .product-card { 
+            background: #1e293b; 
+            border-radius: 12px; 
+            border: 1px solid #334155; 
+            overflow: hidden; 
+            transition: 0.3s; 
+            display: flex; 
+            flex-direction: column; 
+        }
         .product-card:hover { transform: translateY(-5px); border-color: #0ea5e9; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        
         .product-img { width: 100%; height: 200px; background: #0f172a; position: relative; display: flex; align-items: center; justify-content: center; }
         .product-img img { max-width: 90%; max-height: 90%; object-fit: contain; }
-        .badge { position: absolute; top: 12px; right: 12px; background: rgba(14, 165, 233, 0.2); color: #0ea5e9; padding: 2px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; border: 1px solid #0ea5e9; text-transform: uppercase; }
-
-        .product-detail { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .product-detail h3 { color: #fff; margin-bottom: 8px; font-size: 1.1rem; font-weight: 700; }
-        .product-detail p { color: #94a3b8; font-size: 0.85rem; margin-bottom: 15px; line-height: 1.4; }
-        
+        .badge { position: absolute; top: 12px; right: 12px; background: rgba(14, 165, 233, 0.1); color: #0ea5e9; padding: 2px 10px; border-radius: 10px; font-size: 0.7rem; font-weight: 800; border: 1px solid #0ea5e9; text-transform: uppercase; }
+        .product-detail { padding: 20px; flex-grow: 1; }
+        .product-detail h3 { color: #fff; margin-bottom: 8px; font-size: 1.1rem; }
+        .product-detail p { color: #94a3b8; font-size: 0.85rem; margin-bottom: 15px; }
         .specs { border-top: 1px solid #334155; padding-top: 15px; margin-top: auto; }
         .spec-item { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px; }
         .spec-label { color: #64748b; }
         .spec-value { color: #cbd5e1; font-weight: 600; }
 
-        footer { text-align: center; padding: 40px; color: #475569; font-size: 0.9rem; }
+        footer { text-align: center; padding: 60px 40px; color: #475569; font-size: 0.9rem; border-top: 1px solid #1e293b; margin-top: 50px; }
     </style>
 </head>
 <body>
@@ -60,91 +96,23 @@
 
     <div class="filter-nav">
         <button class="filter-btn active" data-filter="all">All Solutions</button>
-        <button class="filter-btn" data-filter="matrice4t">Emergency & Delivery</button>
-        <button class="filter-btn" data-filter="matrice400">Public Safety</button>
-        <button class="filter-btn" data-filter="cargo">Firefighting</button>
+        <button class="filter-btn" data-filter="emergency">Emergency & Delivery</button>
+        <button class="filter-btn" data-filter="public-safety">Public Safety</button>
+        <button class="filter-btn" data-filter="firefighting">Firefighting</button>
         <button class="filter-btn" data-filter="radar">Radar Systems</button>
+        <button class="filter-btn" data-filter="cleaning">UAV Cleaning</button>
+        <button class="filter-btn" data-filter="fpv">FPV Drone</button>
+        <button class="filter-btn" data-filter="countermeasure">Countermeasure</button>
+        <button class="filter-btn" data-filter="antenna">Anti-Interference Antenna</button>
+        <button class="filter-btn" data-filter="gimbal">Gimbal & Lens</button>
+        <button class="filter-btn" data-filter="vtol">VTOL Fixed-wing</button>
     </div>
 
     <div class="container">
+        <div id="no-products">No products found in this category. Coming soon!</div>
+
         <div class="product-grid" id="product-list">
-            
-            <div class="product-card" data-type="matrice400">
-                <div class="product-img">
-                    <span class="badge">Enforcement</span>
-                    <img src="images/FT100P-A.jpg" alt="FT100P-A MAX">
-                </div>
-                <div class="product-detail">
-                    <h3>Visual Drop & Warning System FT100P-A MAX</h3>
-                    <p>Integrated high-definition camera, multi-stage dropper, and high-intensity warning lights for M400 series.</p>
-                    <div class="specs">
-                        <div class="spec-item"><span class="spec-label">Model</span><span class="spec-value">FT100P-A MAX</span></div>
-                        <div class="spec-item"><span class="spec-label">Compatibility</span><span class="spec-value">Matrice 400</span></div>
-                    </div>
-                </div>
             </div>
-
-            <div class="product-card" data-type="matrice400">
-                <div class="product-img">
-                    <span class="badge">Security</span>
-                    <img src="images/ANG200P-A.jpg" alt="ANG200P-A">
-                </div>
-                <div class="product-detail">
-                    <h3>Visual Dual-Shot Net Launcher ANG200P-A</h3>
-                    <p>Advanced drone interception system with real-time video feedback and dual-launch capability.</p>
-                    <div class="specs">
-                        <div class="spec-item"><span class="spec-label">Model</span><span class="spec-value">ANG200P-A</span></div>
-                        <div class="spec-item"><span class="spec-label">Type</span><span class="spec-value">Net Capture</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" data-type="cargo">
-                <div class="product-img">
-                    <span class="badge">Fire Ops</span>
-                    <img src="images/FB430.jpg" alt="FB-430">
-                </div>
-                <div class="product-detail">
-                    <h3>Fire Extinguishing Bomb Launcher FB-430</h3>
-                    <p>Heavy-duty payload for FlyCart 100 designed for high-rise fire suppression and precision bombing.</p>
-                    <div class="specs">
-                        <div class="spec-item"><span class="spec-label">Model</span><span class="spec-value">FB-430</span></div>
-                        <div class="spec-item"><span class="spec-label">Payload</span><span class="spec-value">Fire Bombs</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" data-type="matrice4t">
-                <div class="product-img">
-                    <span class="badge">Environment</span>
-                    <img src="images/WS100P.jpg" alt="WS100P">
-                </div>
-                <div class="product-detail">
-                    <h3>Aerial Water Sampler WS100P</h3>
-                    <p>Remote water collection system for environmental monitoring and chemical analysis in hard-to-reach areas.</p>
-                    <div class="specs">
-                        <div class="spec-item"><span class="spec-label">Model</span><span class="spec-value">WS100P</span></div>
-                        <div class="spec-item"><span class="spec-label">Function</span><span class="spec-value">Water Collection</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" data-type="radar">
-                <div class="product-img">
-                    <span class="badge">Radar</span>
-                    <img src="images/MS-UH10W.jpg" alt="MS-UH10W">
-                </div>
-                <div class="product-detail">
-                    <h3>1000m Altimeter Radar MS-UH10W</h3>
-                    <p>High-precision millimeter-wave radar for ultra-long-range altitude sensing and terrain following.</p>
-                    <div class="specs">
-                        <div class="spec-item"><span class="spec-label">Range</span><span class="spec-value">1000m</span></div>
-                        <div class="spec-item"><span class="spec-label">Precision</span><span class="spec-value">±3cm</span></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </div>
 
     <footer>
@@ -153,22 +121,30 @@
 
     <script>
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const productCards = document.querySelectorAll('.product-card');
+        const productList = document.getElementById('product-list');
+        const noProductsMsg = document.getElementById('no-products');
 
         function applyFilter(filterType) {
-            // Update buttons
+            const cards = document.querySelectorAll('.product-card');
+            let visibleCount = 0;
+
+            // 更新按钮状态
             filterBtns.forEach(btn => {
                 btn.classList.toggle('active', btn.getAttribute('data-filter') === filterType);
             });
 
-            // Show/Hide cards
-            productCards.forEach(card => {
+            // 执行过滤逻辑
+            cards.forEach(card => {
                 if (filterType === 'all' || card.getAttribute('data-type') === filterType) {
                     card.style.display = 'flex';
+                    visibleCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
+
+            // 如果当前分类下没有产品，显示提示信息
+            noProductsMsg.style.display = (visibleCount === 0) ? 'block' : 'none';
         }
 
         filterBtns.forEach(btn => {
@@ -178,7 +154,7 @@
             });
         });
 
-        // Initialize from URL
+        // 初始化：检查 URL 参数（配合首页跳转）
         window.onload = () => {
             const params = new URLSearchParams(window.location.search);
             const type = params.get('type') || 'all';
