@@ -39,16 +39,38 @@
         .product-card { background: #1e293b; border-radius: 12px; border: 1px solid #334155; overflow: hidden; transition: 0.3s; display: flex; flex-direction: column; cursor: pointer; }
         .product-card:hover { transform: translateY(-5px); border-color: #0ea5e9; }
         
-        .product-img { width: 100%; height: 220px; background: #0f172a; position: relative; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .product-img::after {
+       /* 1. 容器层：保持相对定位 */
+.product-img { 
+    width: 100%; 
+    height: 220px; 
+    background: #0f172a; 
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 20px;
+    overflow: hidden; /* 必须加上，确保阴影不会溢出圆角边框 */
+}
+
+/* 2. 遮罩层：放在图片上方 */
+.product-img::after {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    /* 创建一个从透明到背景色的径向渐变，模糊边缘 */
-    box-shadow: inset 0 0 30px 20px #0f172a; 
+    /* 建议数值调大一点，过渡会更自然 */
+    box-shadow: inset 0 0 45px 30px #0f172a; 
     pointer-events: none;
+    z-index: 2; /* 确保遮罩层级高于图片 */
 }
-        .product-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+/* 3. 图片层：确保层级较低 */
+.product-img img { 
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
+    position: relative;
+    z-index: 1; /* 图片在下方，这样边缘才会被上面的阴影遮住 */
+}
         .badge { position: absolute; top: 12px; right: 12px; background: rgba(14, 165, 233, 0.1); color: #0ea5e9; padding: 4px 10px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; border: 1px solid #0ea5e9; }
 
         .product-detail { padding: 20px; flex-grow: 1; }
