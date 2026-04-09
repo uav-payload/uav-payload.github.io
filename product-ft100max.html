@@ -20,9 +20,49 @@
         .container { max-width: 1000px; margin: 40px auto; padding: 20px; }
 
         /* 产品头部区域 */
-        .product-hero { display: flex; flex-wrap: wrap; gap: 40px; margin-bottom: 60px; align-items: center; }
-        .product-main-img { flex: 1; min-width: 300px; background: #1e293b; border-radius: 20px; padding: 20px; border: 1px solid #334155; }
-        .product-main-img img { width: 100%; border-radius: 10px; }
+        /* 1. 整体布局：增加间距，让视觉更开阔 */
+.product-hero { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 50px; 
+    margin-bottom: 60px; 
+    align-items: flex-start; /* 改为顶部对齐，更显专业 */
+}
+
+/* 2. 实物图容器：调整比例并增加阴影深度 */
+.product-main-img { 
+    flex: 0 0 45%; /* 核心修改：固定图片区域比例 */
+    min-width: 350px; 
+    background: #1e293b; 
+    border-radius: 20px; 
+    padding: 10px; /* 减小内边距，让图片占位更大 */
+    border: 1px solid #334155;
+    position: relative; /* 必须：为遮罩提供定位基准 */
+    overflow: hidden; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+/* 3. 新增：边缘模糊遮罩层 */
+.product-main-img::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* 利用内阴影，把图片边缘生硬的颜色“压”进深色背景 */
+    box-shadow: inset 0 0 40px 15px #1e293b; 
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* 4. 图片：确保在遮罩下方 */
+.product-main-img img { 
+    width: 100%; 
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    position: relative;
+    z-index: 1;
+    object-fit: cover;
+}
         .product-intro { flex: 1.2; min-width: 300px; }
         .product-intro h1 { font-size: 2.5rem; margin-bottom: 10px; color: #fff; }
         .product-intro h2 { font-size: 1.2rem; color: #0ea5e9; margin-bottom: 20px; text-transform: uppercase; }
