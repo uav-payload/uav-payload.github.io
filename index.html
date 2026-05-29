@@ -158,4 +158,128 @@
             padding: 30px;
             border-radius: 16px; /* 稍微加圆润了一点，更符合现代设计 */
             border: 1px solid #334155;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(14, 165, 233, 0.15);
+            border-color: #0ea5e9;
+        }
+        .card h3 {
+            font-size: 1.3rem;
+            color: #fff; /* 标题采用白色，鼠标悬停或副标题再用高亮蓝色，这样更有层次 */
+            margin-bottom: 12px;
+            transition: color 0.3s;
+        }
+        .card:hover h3 {
+            color: #0ea5e9; /* 鼠标悬停卡片，标题变蓝 */
+        }
+        .card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* 产品图片区域样式 */
+        .product-image {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            background-color: #0f172a;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            transition: transform 0.5s ease;
+        }
+        .card:hover .product-image img {
+            transform: scale(1.06); /* 柔和的放大动效 */
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #020617;
+            color: #64748b;
+            border-top: 1px solid #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">UAV <span>Payload</span></a>
+            <div class="nav-links">
+                <a href="index.html" style="color: #0ea5e9;">Home</a>
+                <a href="products.html">Products</a>
+                <a href="about.html">About</a>
+                <a href="news.html">News</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        
+        <video autoplay loop muted playsinline class="bg-video">
+            <source src="videos/dock3.mov" type="video/quicktime">
+            您的浏览器不支持 HTML5 视频。
+        </video>
+
+        <div class="hero-content">
+            <h1>UAV Payload Solutions</h1>
+            <p>专业级无人机设备与挂载系统</p>
+            <a href="products.html" class="btn">浏览产品</a>
+        </div>
+        
+    </section>
+
+    <main class="container">
+        <h2>Our Core Solutions</h2>
+        <div class="grid">
+            <div class="card" onclick="location.href='products.html?type=dock'" style="cursor: pointer;">
+                <div class="product-image">
+                    <img src="images/dock.jpg.jpg" alt="Dji Dock 3">
+                </div>
+                <h3>Dji Dock 3 Series Payloads</h3>
+                <p>Equipped with gas detectors and other devices for chemical and oil & gas scenarios.</p>
+            </div>
+
+            <div class="card" onclick="location.href='products.html?type=matrice4t'" style="cursor: pointer;">
+                <div class="product-image">
+                    <img src="images/4t.jpg.png" alt="Dji Matrice 4T">
+                </div>
+                <h3>DJI Matrice 4T & 4E Payloads</h3>
+                <p>Airdrop Kit for Remote Transportation of Emergency Supplies.</p>
+            </div>
+
+            <div class="card" onclick="location.href='products.html?type=cargo'" style="cursor: pointer;">
+                <div class="product-image">
+                    <img src="images/fc100.jpg.jpg" alt="Dji Cargo">
+                </div>
+                <h3>DJI Cargo UAV Series Solutions</h3>
+                <p>Fire Fighting Water Gun and Extinguishing Bomb Delivery System.</p>
+            </div>
+
+            <div class="card" onclick="location.href='products.html?type=matrice400'" style="cursor: pointer;">
+                <div class="product-image">
+                    <img src="images/400.jpg.jpg" alt="Dji Matrice 400">
+                </div>
+                <h3>DJI Matrice 400 Series Payloads</h3>
+                <p>Solutions for High-Altitude Cleaning, Tethered Lighting, and Methane Monitoring.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 UAV Payload Technology. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
