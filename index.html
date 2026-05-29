@@ -58,160 +58,104 @@
             color: #0ea5e9;
         }
 
-        /* 首屏横幅 */
-        .hero {
-            text-align: center;
-            padding: 100px 20px;
-            background: linear-gradient(180deg, #0f172a 0%, #0b1120 100%);
+        /* 修复后的全屏视频 Banner 容器（修正类名为 .hero-section） */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 80vh; /* 占浏览器高度的 80%，如需完全铺满全屏可改为 100vh */
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f172a;
         }
-        .hero h1 {
-            font-size: 3rem;
+
+        /* 背景视频全屏自适应裁剪 */
+        .bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* 视频上方的深色半透明黑纱遮罩，压暗视频以保证白色文字清晰可见 */
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.65); /* 65% 透明度的深蓝色遮罩，极具科技官网质感 */
+            z-index: 2;
+        }
+
+        /* 文字内容层级调最高，排版美化 */
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: #ffffff;
+            padding: 0 20px;
+            max-width: 800px;
+        } 
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
             margin-bottom: 20px;
-            background: -webkit-linear-gradient(45deg, #fff, #0ea5e9);
+            letter-spacing: -1px;
+            background: linear-gradient(45deg, #fff, #0ea5e9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .hero p {
-            font-size: 1.2rem;
+        .hero-content p {
+            font-size: 1.25rem;
             color: #94a3b8;
-            max-width: 600px;
-            margin: 0 auto;
+            margin-bottom: 30px;
+        }
+
+        /* 补全：科技感主按钮样式 */
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background-color: #0ea5e9;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+        }
+        .btn:hover {
+            background-color: #0284c7;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5);
         }
 
         /* 核心内容区布局 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 80px 20px;
         }
         h2 {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
             color: #fff;
+            letter-spacing: -0.5px;
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
         .card {
             background-color: #1e293b;
             padding: 30px;
-            border-radius: 12px;
+            border-radius: 16px; /* 稍微加圆润了一点，更符合现代设计 */
             border: 1px solid #334155;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.2);
-            border-color: #0ea5e9;
-        }
-        .card h3 {
-            font-size: 1.3rem;
-            color: #0ea5e9;
-            margin-bottom: 15px;
-        }
-
-        /* 产品图片样式 */
-        .product-image {
-            width: 100%;
-            height: 200px;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            background-color: #0f172a;
-        }
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            transition: transform 0.5s ease;
-        }
-        .card:hover .product-image img {
-            transform: scale(1.1);
-        }
-
-        /* 页脚 */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            background-color: #020617;
-            color: #64748b;
-            border-top: 1px solid #1e293b;
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <nav>
-            <a href="index.html" class="logo">UAV <span>Payload</span></a>
-            <div class="nav-links">
-                <a href="index.html" style="color: #0ea5e9;">Home</a>
-                <a href="products.html">Products</a>
-                <a href="about.html">About</a>
-                <a href="news.html">News</a>
-                <a href="contact.html">Contact</a>
-            </div>
-        </nav>
-    </header>
-
-  <section class="hero-section">
-    
-    <video autoplay loop muted playsinline class="bg-video">
-        <source src="videos/dock3.mov" type="video/quicktime">
-        您的浏览器不支持 HTML5 视频。
-    </video>
-
-    <div class="hero-content">
-        <h1>UAV Payload Solutions</h1>
-        <p>专业级无人机设备与挂载系统</p>
-        <a href="products.html" class="btn">浏览产品</a>
-    </div>
-    
-</section>
-
-    <main class="container">
-        <h2>Our Core Solutions</h2>
-        <div class="grid">
-            <div class="card" onclick="location.href='products.html?type=dock'" style="cursor: pointer;">
-                <div class="product-image">
-                    <img src="images/dock.jpg.jpg" alt="Dji Dock 3">
-                </div>
-                <h3>Dji Dock 3 Series Payloads</h3>
-                <p>Equipped with gas detectors and other devices for chemical and oil & gas scenarios.</p>
-            </div>
-
-            <div class="card" onclick="location.href='products.html?type=matrice4t'" style="cursor: pointer;">
-                <div class="product-image">
-                    <img src="images/4t.jpg.png" alt="Dji Matrice 4T">
-                </div>
-                <h3>DJI Matrice 4T & 4E Payloads</h3>
-                <p>Airdrop Kit for Remote Transportation of Emergency Supplies.</p>
-            </div>
-
-            <div class="card" onclick="location.href='products.html?type=cargo'" style="cursor: pointer;">
-                <div class="product-image">
-                    <img src="images/fc100.jpg.jpg" alt="Dji Cargo">
-                </div>
-                <h3>DJI Cargo UAV Series Solutions</h3>
-                <p>Fire Fighting Water Gun and Extinguishing Bomb Delivery System.</p>
-            </div>
-
-            <div class="card" onclick="location.href='products.html?type=matrice400'" style="cursor: pointer;">
-                <div class="product-image">
-                    <img src="images/400.jpg.jpg" alt="Dji Matrice 400">
-                </div>
-                <h3>DJI Matrice 400 Series Payloads</h3>
-                <p>Solutions for High-Altitude Cleaning, Tethered Lighting, and Methane Monitoring.</p>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <p>© 2026 UAV Payload Technology. All rights reserved.</p>
-    </footer>
-
-</body>
-</html>
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease
