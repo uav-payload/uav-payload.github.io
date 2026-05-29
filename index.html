@@ -58,11 +58,11 @@
             color: #0ea5e9;
         }
 
-        /* 修复后的全屏视频 Banner 容器（修正类名为 .hero-section） */
+        /* 全屏视频 Banner 容器 */
         .hero-section {
             position: relative;
             width: 100%;
-            height: 80vh; /* 占浏览器高度的 80%，如需完全铺满全屏可改为 100vh */
+            height: 80vh; /* 占浏览器高度的 80% */
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -89,7 +89,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.65); /* 65% 透明度的深蓝色遮罩，极具科技官网质感 */
+            background: rgba(15, 23, 42, 0.65); /* 65% 透明度的深蓝色遮罩 */
             z-index: 2;
         }
 
@@ -156,7 +156,7 @@
         .card {
             background-color: #1e293b;
             padding: 30px;
-            border-radius: 16px; /* 稍微加圆润了一点，更符合现代设计 */
+            border-radius: 16px;
             border: 1px solid #334155;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             display: flex;
@@ -169,12 +169,12 @@
         }
         .card h3 {
             font-size: 1.3rem;
-            color: #fff; /* 标题采用白色，鼠标悬停或副标题再用高亮蓝色，这样更有层次 */
+            color: #fff;
             margin-bottom: 12px;
             transition: color 0.3s;
         }
         .card:hover h3 {
-            color: #0ea5e9; /* 鼠标悬停卡片，标题变蓝 */
+            color: #0ea5e9;
         }
         .card p {
             color: #94a3b8;
@@ -197,7 +197,7 @@
             transition: transform 0.5s ease;
         }
         .card:hover .product-image img {
-            transform: scale(1.06); /* 柔和的放大动效 */
+            transform: scale(1.06);
         }
 
         /* 页脚 */
@@ -227,10 +227,10 @@
 
     <section class="hero-section">
         
-<video autoplay loop muted playsinline class="bg-video">
-    <source src="videos/DOCK.mp4" type="video/mp4">
-    您的浏览器不支持 HTML5 视频。
-</video>
+        <video id="mainBgVideo" autoplay loop muted playsinline class="bg-video">
+            <source src="videos/DOCK.mp4" type="video/mp4">
+            您的浏览器不支持 HTML5 视频。
+        </video>
 
         <div class="hero-content">
             <h1>UAV Payload Solutions</h1>
@@ -280,6 +280,36 @@
     <footer>
         <p>© 2026 UAV Payload Technology. All rights reserved.</p>
     </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('mainBgVideo');
+            if (video) {
+                video.muted = true; // 确保一定是静音状态
+                
+                // 执行强制播放
+                const playPromise = video.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("检测到浏览器策略拦截，正在激活用户交互唤醒功能...", error);
+                        
+                        // 兜底策略：一旦客户在网页任意地方产生轻点、滚动或点击，立马无缝唤醒视频
+                        const runForcePlay = () => {
+                            video.play();
+                            window.removeEventListener('click', runForcePlay);
+                            window.removeEventListener('touchstart', runForcePlay);
+                            window.removeEventListener('scroll', runForcePlay);
+                        };
+                        
+                        window.addEventListener('click', runForcePlay);
+                        window.addEventListener('touchstart', runForcePlay);
+                        window.addEventListener('scroll', runForcePlay);
+                    });
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
